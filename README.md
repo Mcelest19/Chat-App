@@ -5,7 +5,7 @@
 A Chat App for mobile devices using React Native. The app will provide users with a chat interface and options to share images and their location.
 
 <p align ="center" >
-<img alt="Chatt-app" src="./assets/video.gif" width="260" height="510" />
+<img alt="Chatt-app" src="./assets/video.gif" width="400" height="510" />
 </p>
 
 ### Built with
