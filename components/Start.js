@@ -31,20 +31,20 @@ const Start = ({ navigation }) => {
           <Text style={styles.textInBox}>Choose Background Color:</Text>
           <View style={styles.radioButtonContainer}>
             <TouchableOpacity
-              style={[styles.radioButton, { backgroundColor: "#ff5e5e" }]}
-              onPress={() => setColor("#ff5e5e")}
+              style={[styles.radioButton, { backgroundColor: "#090C08" }]}
+              onPress={() => setColor("#090C08")}
             ></TouchableOpacity>
             <TouchableOpacity
-              style={[styles.radioButton, { backgroundColor: "#69cfff" }]}
-              onPress={() => setColor("#69cfff")}
+              style={[styles.radioButton, { backgroundColor: "#474056" }]}
+              onPress={() => setColor("#474056")}
             ></TouchableOpacity>
             <TouchableOpacity
-              style={[styles.radioButton, { backgroundColor: "#8a95a5" }]}
-              onPress={() => setColor("#8a95a5")}
+              style={[styles.radioButton, { backgroundColor: "#8A95A5" }]}
+              onPress={() => setColor("#8A95A5")}
             ></TouchableOpacity>
             <TouchableOpacity
-              style={[styles.radioButton, { backgroundColor: "#fff869" }]}
-              onPress={() => setColor("#fff869")}
+              style={[styles.radioButton, { backgroundColor: "#B9C6AE" }]}
+              onPress={() => setColor("#B9C6AE")}
             ></TouchableOpacity>
           </View>
           <TouchableOpacity
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
   },
   inputBox: {
     backgroundColor: '#fff',
-    marginBottom: 100,
+    marginBottom: 60,
     height: '44%',
     width: '88%',
     alignItems: 'center',
@@ -90,9 +90,9 @@ const styles = StyleSheet.create({
     paddingVertical: 20
 },
 textInBox: {
-  fontWeight: "bold",
-  fontSize: 15,
-  color: '#8a95a5',
+  fontWeight: "300",
+  fontSize: 16,
+  color: '#757083',  
 },
   radioButtonContainer: {
     width: "70%",
@@ -101,13 +101,15 @@ textInBox: {
     margin: 20,
   },
   title: {
-    fontWeight: "bold",
-    fontSize: 30,
+    fontWeight: "600",
+    fontSize: 45,
     color: "white",
   },
   button: {
     alignItems: "center",
     backgroundColor: "#DDDDDD",
+    fontSize: 16,
+    fontWeight: "600",    
     padding: 10,
     width: "88%",
   },
@@ -121,10 +123,13 @@ textInBox: {
     height: 50,
     width: "88%",
     margin: 12,
+    fontSize: 16,
+    fontWeight: "300",
     borderWidth: 1,
     borderColor: "black",
     padding: 10,
-    color: "white"
+    color: "#757083",
+    opacity: 50,
   },
 });
 
