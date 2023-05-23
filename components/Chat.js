@@ -5,6 +5,7 @@ import { GiftedChat, Bubble } from "react-native-gifted-chat";
 const Chat = ({ route, navigation }) => {  
   const { name, color } = route.params;
   const [messages, setMessages] = useState([]);
+  //to send messages
   const onSend = (newMessages) => {
   setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages))
  }
@@ -35,6 +36,7 @@ const Chat = ({ route, navigation }) => {
     navigation.setOptions({ title: name })
   }, []);
 
+  // to change the speech bubble color
   const renderBubble = (props) => {
     return <Bubble
       {...props}
@@ -60,6 +62,7 @@ const Chat = ({ route, navigation }) => {
           _id: 1
         }}
       />
+      {/* fixes the keyboard entering the input box */}
       { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }
     </View>
    )
