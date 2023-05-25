@@ -1,40 +1,48 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, KeyboardAvoidingView, } from "react-native";
 import { GiftedChat, Bubble } from "react-native-gifted-chat";
+import {  collection,  addDoc,  onSnapshot,  query,  orderBy,} from "firebase/firestore";
 
-const Chat = ({ route, navigation }) => {  
-  const { name, color } = route.params;
+const Chat = ({ db, route, navigation }) => {  
+  const { name, color, userID } = route.params;
   const [messages, setMessages] = useState([]);
-  //to send messages
-  const onSend = (newMessages) => {
-  setMessages(previousMessages => GiftedChat.append(previousMessages, newMessages))
- }
 
  useEffect(() => {
-  setMessages([
-    {
-      _id: 1,
-      text: 'Hello developer',
-      createdAt: new Date(),
-      user: {
-        _id: 2,
-        name: 'React Native',
-        avatar: 'https://placeimg.com/140/140/any',
-      },
-    },
-    {
-      _id: 2,
-      text: 'This is a system message',
-      createdAt: new Date(),
-      system: true,
-    },
-  ]);
+  navigation.setOptions({ title: name });
+  const q = query(collection(db, "messages"), orderBy("createdAt", "desc"));
+  const unsubMessages = onSnapshot(q, (docs) => {
+    let newMessages = [];
+    docs.forEach((doc) => {
+      newMessages.push({
+        id: doc.id,
+        ...doc.data(),
+        createdAt: new Date(doc.data().createdAt.toMillis()),
+      });
+    });
+    setMessages(newMessages);
+  });
+  return () => {
+    if (unsubMessages) unsubMessages();
+  };
 }, []);
 
 
-  useEffect(() => {
-    navigation.setOptions({ title: name })
-  }, []);
+const addMessagesItem = async (newMessage) => {
+  const newMessageRef = await addDoc(
+    collection(db, "messages"),
+    newMessage[0]
+  );
+  if (!newMessageRef.id) {
+    Alert.alert(
+      "There was an error sending your message. Please try again later"
+    );
+  }
+};
+
+ //to send messages
+ const onSend = (newMessages) => {
+  addMessagesItem(newMessages);
+};
 
   // to change the speech bubble color
   const renderBubble = (props) => {
@@ -59,8 +67,9 @@ const Chat = ({ route, navigation }) => {
         renderBubble={renderBubble}
         onSend={messages => onSend(messages)}
         user={{
-          _id: 1
+          _id: userID,          
         }}
+        name={{ name: name }}
       />
       {/* fixes the keyboard entering the input box */}
       { Platform.OS === 'android' ? <KeyboardAvoidingView behavior="height" /> : null }

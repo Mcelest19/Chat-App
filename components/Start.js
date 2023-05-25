@@ -6,12 +6,31 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
+  onAuthStateChanged,
 } from "react-native";
 import {KeyboardAvoidingView} from "react-native-gifted-chat";
+import { getAuth, signInAnonymously } from "firebase/auth";
+import { Alert } from "react-native";
 
 const Start = ({ navigation }) => {
   const [text, setText] = useState("");
   const [color, setColor] = useState("");
+  const auth = getAuth();
+
+  const signInUser = () => {
+    signInAnonymously(auth)
+      .then((result) => {
+        navigation.navigate("Chat", {
+          userID: result.user.uid,
+          name: text ? text : "User",
+          color: color ? color : "white",
+        });
+        Alert.alert("Signed in successfully!");
+      })
+      .catch((error) => {
+        Alert.alert("Unable to sign in, try again later.");
+      });
+  };
 
   return (
     <ImageBackground
@@ -48,15 +67,7 @@ const Start = ({ navigation }) => {
               onPress={() => setColor("#B9C6AE")}
             ></TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() =>
-              navigation.navigate("Chat", {
-                name: text ? text : "User",
-                color: color ? color : "white",
-              })
-            }
-          >
+          <TouchableOpacity style={styles.button} onPress={signInUser}>
             <Text>Start Chatting</Text>
           </TouchableOpacity>
         </View>
