@@ -1,7 +1,7 @@
 # Chat App
 
 <p align ="center" >
-<img alt="Chatt-app" src="./assets/start.jpg" width="400" height="510" />
+<img alt="Chatt-app" src="./assets/start.jpg"/>
 </p>
 
 
