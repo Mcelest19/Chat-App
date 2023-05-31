@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
-  onAuthStateChanged,
 } from "react-native";
 import {KeyboardAvoidingView} from "react-native-gifted-chat";
 import { getAuth, signInAnonymously } from "firebase/auth";

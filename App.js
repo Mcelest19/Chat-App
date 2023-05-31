@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { initializeApp } from "firebase/app";
 import { getFirestore, disableNetwork, enableNetwork, } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 import{ Alert } from "react-native";
 
 import { useNetInfo } from "@react-native-community/netinfo";
@@ -27,9 +28,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
+const storage = getStorage(app);
 
 // The app’s main Chat component that renders the chat UI
 const App = () => {
+  
 
   const connectionStatus = useNetInfo();
   useEffect(() => {
@@ -50,14 +53,15 @@ const App = () => {
           name="Start"
           component={Start}
         />
-        <Stack.Screen name='Chat'>
-                    {(props) => (
-            <Chat
-              isConnected={connectionStatus.isConnected}
-              db={db}
-              {...props}
-            />
-          )}
+        <Stack.Screen
+          name="Chat"
+        >
+          {props => <Chat
+            isConnected={connectionStatus.isConnected}
+            db={db}
+            storage={storage}
+            {...props}
+          />}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
